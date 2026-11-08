@@ -31,6 +31,7 @@
       img.loading = "lazy";
       img.src = src;
       img.alt = data[slug].title + " nails";
+      img.addEventListener("load", () => { if (img.naturalWidth > img.naturalHeight) btn.classList.add("wide"); });
       btn.appendChild(img);
       btn.addEventListener("click", () => {
         lightboxImg.src = src;

@@ -20,7 +20,7 @@ Add a new folder to add a new category. The gallery reads the folders at request
 
 ## Editing text, prices and contact details
 
-Everything is in `public/index.html`. Search for `TODO` to find what still needs filling in (booking link, phone, Instagram, address). The services and prices section is hidden until the list is ready.
+Everything is in `public/index.html`. Search for `TODO` to find what still needs filling in (booking link, phone, Instagram, address). Prices are in the `prices` section of the same file.
 
 ## Run locally
 
