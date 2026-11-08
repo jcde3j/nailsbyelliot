@@ -24,7 +24,11 @@ const MIME = {
   ".txt": "text/plain; charset=utf-8",
 };
 
+const TITLES = { "3d": "3D", "blooming-gel": "Blooming Gel", "polka-dot": "Polka Dot" };
+const ORDER = ["french", "chrome", "3d", "floral", "blooming-gel", "polka-dot", "other"];
+
 function titleCase(slug) {
+  if (TITLES[slug]) return TITLES[slug];
   return slug.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
 }
 
@@ -32,7 +36,11 @@ function titleCase(slug) {
 function gallery() {
   const out = {};
   if (!fs.existsSync(IMAGES)) return out;
-  for (const dir of fs.readdirSync(IMAGES, { withFileTypes: true })) {
+  // Known categories first in the order above, then any new folders alphabetically.
+  const rank = (n) => (ORDER.includes(n) ? ORDER.indexOf(n) : ORDER.length);
+  const dirs = fs.readdirSync(IMAGES, { withFileTypes: true })
+    .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
+  for (const dir of dirs) {
     if (!dir.isDirectory()) continue;
     const files = fs
       .readdirSync(path.join(IMAGES, dir.name))
